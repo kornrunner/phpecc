@@ -17,6 +17,7 @@ class CurveFactory
     {
         $adapter = MathAdapterFactory::getAdapter();
         $nistFactory = self::getNistFactory($adapter);
+        $brainpoolFactory = self::getBrainpoolFactory($adapter);
         $secpFactory = self::getSecpFactory($adapter);
 
         switch ($name) {
@@ -30,6 +31,14 @@ class CurveFactory
                 return $nistFactory->curve384();
             case NistCurve::NAME_P521:
                 return $nistFactory->curve521();
+            case BrainpoolCurve::NAME_P160R1:
+                return $brainpoolFactory->curve160r1();
+            case BrainpoolCurve::NAME_P256R1:
+                return $brainpoolFactory->curve256r1();
+            case BrainpoolCurve::NAME_P384R1:
+                return $brainpoolFactory->curve384r1();
+            case BrainpoolCurve::NAME_P512R1:
+                return $brainpoolFactory->curve512r1();
             case SecgCurve::NAME_SECP_112R1:
                 return $secpFactory->curve112r1();
             case SecgCurve::NAME_SECP_192K1:
@@ -53,6 +62,7 @@ class CurveFactory
     {
         $adapter = MathAdapterFactory::getAdapter();
         $nistFactory = self::getNistFactory($adapter);
+        $brainpoolFactory = self::getBrainpoolFactory($adapter);
         $secpFactory = self::getSecpFactory($adapter);
 
         switch ($name) {
@@ -66,6 +76,14 @@ class CurveFactory
                 return $nistFactory->generator384();
             case NistCurve::NAME_P521:
                 return $nistFactory->generator521();
+            case BrainpoolCurve::NAME_P160R1:
+                return $brainpoolFactory->generator160r1();
+            case BrainpoolCurve::NAME_P256R1:
+                return $brainpoolFactory->generator256r1();
+            case BrainpoolCurve::NAME_P384R1:
+                return $brainpoolFactory->generator384r1();
+            case BrainpoolCurve::NAME_P512R1:
+                return $brainpoolFactory->generator512r1();
             case SecgCurve::NAME_SECP_112R1:
                 return $secpFactory->generator112r1();
             case SecgCurve::NAME_SECP_192K1:
@@ -97,5 +115,14 @@ class CurveFactory
     private static function getSecpFactory(GmpMathInterface $math): SecgCurve
     {
         return new SecgCurve($math);
+    }
+
+    /**
+     * @param GmpMathInterface $math
+     * @return BrainpoolCurve
+     */
+    private static function getBrainpoolFactory(GmpMathInterface $math): BrainpoolCurve
+    {
+        return new BrainpoolCurve($math);
     }
 }
